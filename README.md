@@ -54,6 +54,6 @@ POST	/api/reservations	Reserve a coffee product
 
 
 📝 License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 
 
