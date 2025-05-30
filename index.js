@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { corsMiddleware } from '../coffee-shop-backend/src/config/corsConfig';
+import { corsMiddleware }  from './src/configs/corsConfig.js';
+// import { pool } from '../coffee-shop-backend/src/configs/dbConfig';
+import { router } from './src/routes/router.js';
 
 // Load environment variables
 dotenv.config();
@@ -12,10 +14,12 @@ app.use(express.json());
 
 app.use(corsMiddleware);
 
-// Endpoint
+app.use('/api', router);
+
 app.get('/', (req, res) => {
-  res.send('Backend is working!');
+  res.send('backend working!');
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
