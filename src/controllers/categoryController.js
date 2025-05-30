@@ -1,4 +1,4 @@
-import { getAllCategories, getCategoryById } from "../services/categoryService.js";
+import { getAllCategories, findCategoryById, saveCategory, updateCategoryDetails, removeCategory } from "../services/categoryService.js";
 
 export const getCategories = async (req, res) => {
     try {
@@ -12,11 +12,40 @@ export const getCategories = async (req, res) => {
 
 export const getCategory = async (req, res) => {
     try {
-        const category = await getCategoryById(req.params.id);
+        const category = await findCategoryById(req.params.id);
         res.json(category);
     }
     catch(error) {
         res.status(500).json({ error: 'Failed to fetch the category' });
-        
+    }
+}
+
+export const createCategory = async (req, res) => {
+    try {
+        const response = await saveCategory(req.body);
+        res.json(response);
+    }
+    catch(error) {
+        res.status(500).json({ error: 'Failed to create the category' });
+    }
+}
+
+export const updateCategory = async (req, res) => {
+    try {
+        const response = await updateCategoryDetails(req.params.id, req.body);
+        res.json(response);
+    }
+    catch(error) {
+        res.status(500).json({ error: 'Failed to update the category' });
+    }
+}
+
+export const deleteCategory = async (req, res) => {
+    try {
+        const response = await removeCategory(req.params.id);
+        res.json(response);
+    }
+    catch(error) {
+        res.status(500).json({ error: 'Failed to delete the category' });
     }
 }
