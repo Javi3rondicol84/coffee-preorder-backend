@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { corsMiddleware }  from './src/configs/corsConfig.js';
 // import { pool } from '../coffee-shop-backend/src/configs/dbConfig';
 import { router } from './src/routes/router.js';
-
+import { db } from './src/configs/dbConfig.js';
 // Load environment variables
 dotenv.config();
 
@@ -16,9 +16,22 @@ app.use(corsMiddleware);
 
 app.use('/api', router);
 
+async function initializeConnection() {
+  try {
+      await db.authenticate();
+      await db.sync();
+  }
+  catch(error) {
+      console.error('unable to connect to the databasee');
+  }
+}
+
+initializeConnection();
+
 app.get('/', (req, res) => {
   res.send('backend working!');
 });
+
 
 
 app.listen(PORT, () => {

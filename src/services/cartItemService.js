@@ -1,6 +1,8 @@
+import { getAll } from "../repositories/carItemRepository.js";
+
 export const getAllCartItems = async () => {
     try {
-        return "it works";
+        return await getAll();
     }
     catch(error) {
         throw new Error('Error fetching cart items');

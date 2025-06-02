@@ -1,6 +1,8 @@
+import { getAll } from "../repositories/categoryRepository.js";
+
 export const getAllCategories = async () => {
     try {
-        return "it works";
+        return await getAll();
     }
     catch(error) {
         throw new Error('Error fetching categories');
