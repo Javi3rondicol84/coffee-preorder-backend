@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { db } from "../configs/dbConfig.js";
+import { User } from "./user.js";
 
 export class Order extends Model {}
 
@@ -13,7 +14,11 @@ Order.init(
         userIdFk: {
             type: DataTypes.INTEGER,
             unique: true ,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: 'users',
+                key: 'user_id'
+            }
         },
         status: {
             type: DataTypes.ENUM(
@@ -31,3 +36,6 @@ Order.init(
         underscored: true
     }
 );
+
+Order.belongsTo(User, {foreignKey: 'userIdFk'});
+User.hasOne(Order, {foreignKey: 'userIdFk'});

@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { db } from "../configs/dbConfig.js";
+import { Category } from "./category.js";
 
 export class Product extends Model {}
 
@@ -24,7 +25,11 @@ Product.init(
             type: DataTypes.STRING
         },
         categoryIdFk: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'categories',
+                key: 'category_id'
+            }
         }
     },
     {
@@ -33,4 +38,7 @@ Product.init(
         tableName: 'products',
         underscored: true
     }
-)
+);
+
+Product.belongsTo(Category, {foreignKey: "categoryIdFk"});
+Category.hasMany(Product, {foreignKey: 'categoryIdFk'});

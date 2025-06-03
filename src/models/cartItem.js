@@ -1,5 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { db } from "../configs/dbConfig.js";
+import { Cart } from "./cart.js";
+import { Product } from "./product.js";
 
 export class CartItem extends Model {}
 
@@ -10,13 +12,21 @@ CartItem.init(
             autoIncrement: true,
             primaryKey: true
         },
-        cartId: {
+        cartIdFk: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                modelName: 'customer_carts',
+                key: 'cart_id'
+            }
         },
-        productId: {
+        productIdFk: {
             type: DataTypes.INTEGER,
-            allowNull: false 
+            allowNull: false,
+            references: {
+                model: 'products',
+                key: 'product_id'
+            } 
         },
         price: {
             type: DataTypes.DECIMAL
@@ -33,3 +43,9 @@ CartItem.init(
         underscored: true       
     }
 )
+
+CartItem.belongsTo(Cart, {foreignKey: 'cartIdFk'});
+Cart.hasMany(CartItem, {foreignKey: 'cartIdFk'});
+
+CartItem.belongsTo(Product, {foreignKey: 'productIdFk'});
+Product.hasMany(CartItem, {foreignKey: 'productIdFk'});

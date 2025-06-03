@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { db } from "../configs/dbConfig.js";
+import { User } from "./user.js";
 
 export class Cart extends Model {}
 
@@ -13,7 +14,11 @@ Cart.init(
         userIdFk: {
             type: DataTypes.INTEGER,
             unique: true,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: 'users',
+                key: 'user_id'
+            }
         }
     },
     {
@@ -22,4 +27,7 @@ Cart.init(
         tableName:  'customer_carts',
         underscored: true
     }
-)
+);
+
+Cart.belongsTo(User, {foreignKey: 'userIdFk'});
+User.hasOne(Cart, {foreignKey: 'userIdFk'});
