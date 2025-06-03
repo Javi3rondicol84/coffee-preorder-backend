@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { db } from "../configs/dbConfig";
+import { db } from "../configs/dbConfig.js";
 
 export class Cart extends Model {}
 

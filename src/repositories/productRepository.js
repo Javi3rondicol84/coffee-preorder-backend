@@ -32,9 +32,7 @@ export async function create(product) {
 
 export async function update(id, product) {
     try {
-        return await Product.update( 
-            {
-            },
+        return await Product.update(product,
             {
                 where: {
                     productId: id
