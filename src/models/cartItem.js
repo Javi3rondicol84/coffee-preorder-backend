@@ -12,14 +12,14 @@ CartItem.init(
         },
         cartId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
         },
         productId: {
             type: DataTypes.INTEGER,
             allowNull: false 
         },
         price: {
-            type: DataTypes.INTEGER
+            type: DataTypes.DECIMAL
         },
         quantity: {
             type: DataTypes.INTEGER
