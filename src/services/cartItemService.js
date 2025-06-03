@@ -1,46 +1,41 @@
-import { getAll } from "../repositories/carItemRepository.js";
+import { create, getAll, getById, remove, update } from "../repositories/cartItemRepository.js";
 
 export const getAllCartItems = async () => {
     try {
         return await getAll();
+    } catch (error) {
+        throw new Error(`Failed to retrieve cart items. Reason: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error fetching cart items');
-    }
-}
+};
 
 export const findCartItemById = async (id) => {
     try {
-        return "it works with id: " + id;
-    }
-    catch(error) {
-        throw new Error('Error fetching cart item');
+        return await getById(id);
+    } catch (error) {
+        throw new Error(`Unable to fetch cart item with ID ${id}. Error: ${error.message}`);
     }  
-}  
+};  
 
 export const saveCartItem = async (cartItem) => {
     try {
-        return cartItem;
-    }
-    catch(error) {
-        throw new Error('Error saving the new cart item');
+        return await create(cartItem);
+    } catch (error) {
+        throw new Error(`Could not save the new cart item (ID: ${cartItem.id}). Error: ${error.message}`);
     }  
-}
+};
 
 export const updateCartItemDetails = async (id, cartItem) => {
     try {
-        return cartItem.status + " is the new value for the cart item with the id: " + id;
+        return await update(id, cartItem);
+    } catch (error) {
+        throw new Error(`Update failed for cart item ID ${id}. Error details: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error updating the cart item with the id: " + id');
-    }
-}
+};
 
 export const removeCartItem = async (id) => {
     try {
-        return "the cart item with the id " + id + " was removed";
-    }
-    catch(error) {
-        throw new Error('Error fetching cart items');
+        return await remove(id);
+    } catch (error) {
+        throw new Error(`Failed to delete cart item with ID ${id}. Error: ${error.message}`);
     }   
-}
+};

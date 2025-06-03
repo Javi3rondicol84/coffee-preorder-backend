@@ -22,7 +22,7 @@ export async function getById(id) {
 
 export async function create(category) {
     try {
-        return await Category.create( { categoryName: category.categoryName} );
+        return await Category.create(category);
     }
     catch(error) {
         console.error('Database error in create', error);
@@ -33,7 +33,7 @@ export async function create(category) {
 export async function update(id, category) {
     try {
         return await Category.update( 
-            { categoryName: category.categoryName },
+            category,
             {
                 where: {
                     categoryId: id

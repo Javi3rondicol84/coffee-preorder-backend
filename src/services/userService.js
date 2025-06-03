@@ -1,45 +1,41 @@
+import { create, getAll, getById, remove, update } from "../repositories/userRepository.js";
+
 export const getAllUsers = async () => {
     try {
-        return "it works";
+        return await getAll();
+    } catch (error) {
+        throw new Error(`Failed to retrieve users. Reason: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error fetching users');
-    }
-}
+};
 
 export const findUserById = async (id) => {
     try {
-        return "it works with id: "+id;
-    }
-    catch(error) {
-        throw new Error('Error fetching user');
+        return await getById(id);
+    } catch (error) {
+        throw new Error(`Unable to fetch user with ID ${id}. Error: ${error.message}`);
     }  
-}  
+};  
 
 export const saveUser = async (user) => {
     try {
-        return user;
-    }
-    catch(error) {
-        throw new Error('Error saving the new user');
+        return await create(user);
+    } catch (error) {
+        throw new Error(`Could not save the new user (${user.name}). Error: ${error.message}`);
     }  
-}
+};
 
 export const updateUserDetails = async (id, user) => {
     try {
-        return user.name + " is the new value for the user with the id: "+id;
+        return await update(id, user);
+    } catch (error) {
+        throw new Error(`Update failed for user ID ${id}. Error details: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error updating the user with the id: '+id);
-    }
-}
+};
 
 export const removeUser = async (id) => {
     try {
-        return "the user with the id "+ id + " was removed";
-    }
-    catch(error) {
-        throw new Error('Error fetching users');
-
+        return await remove(id);
+    } catch (error) {
+        throw new Error(`Failed to delete user with ID ${id}. Error: ${error.message}`);
     }   
-}
+};

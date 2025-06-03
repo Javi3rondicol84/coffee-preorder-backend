@@ -1,44 +1,41 @@
+import { create, getAll, getById, remove, update } from "../repositories/productRepository.js";
+
 export const getAllProducts = async () => {
     try {
-        return "it works";
+        return await getAll();
+    } catch (error) {
+        throw new Error(`Failed to retrieve products. Reason: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error fetching products');
-    }
-}
+};
 
 export const findProductById = async (id) => {
     try {
-        return "it works with id: " + id;
-    }
-    catch(error) {
-        throw new Error('Error fetching product');
+        return await getById(id);
+    } catch (error) {
+        throw new Error(`Unable to fetch product with ID ${id}. Error: ${error.message}`);
     }  
-}  
+};  
 
 export const saveProduct = async (product) => {
     try {
-        return product;
-    }
-    catch(error) {
-        throw new Error('Error saving the new product');
+        return await create(product);
+    } catch (error) {
+        throw new Error(`Could not save the new product (${product.name}). Error: ${error.message}`);
     }  
-}
+};
 
 export const updateProductDetails = async (id, product) => {
     try {
-        return product.name + " is the new value for the product with the id: " + id;
+        return await update(id, product);
+    } catch (error) {
+        throw new Error(`Update failed for product ID ${id}. Error details: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error updating the product with the id: " + id');
-    }
-}
+};
 
 export const removeProduct = async (id) => {
     try {
-        return "the product with the id " + id + " was removed";
-    }
-    catch(error) {
-        throw new Error('Error fetching products');
+        return await remove(id);
+    } catch (error) {
+        throw new Error(`Failed to delete product with ID ${id}. Error: ${error.message}`);
     }   
-}
+};

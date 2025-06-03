@@ -1,44 +1,41 @@
+import { create, getAll, getById, remove, update } from "../repositories/orderItemRepository.js";
+
 export const getAllOrderItems = async () => {
     try {
-        return "it works";
+        return await getAll();
+    } catch (error) {
+        throw new Error(`Failed to retrieve order items. Reason: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error fetching order items');
-    }
-}
+};
 
 export const findOrderItemById = async (id) => {
     try {
-        return "it works with id: " + id;
-    }
-    catch(error) {
-        throw new Error('Error fetching order item');
+        return await getById(id);
+    } catch (error) {
+        throw new Error(`Unable to fetch order item with ID ${id}. Error: ${error.message}`);
     }  
-}  
+};  
 
 export const saveOrderItem = async (orderItem) => {
     try {
-        return orderItem;
-    }
-    catch(error) {
-        throw new Error('Error saving the new order item');
+        return await create(orderItem);
+    } catch (error) {
+        throw new Error(`Could not save the new order item (ID: ${orderItem.id}). Error: ${error.message}`);
     }  
-}
+};
 
 export const updateOrderItemDetails = async (id, orderItem) => {
     try {
-        return orderItem.status + " is the new value for the order item with the id: " + id;
+        return await update(id, orderItem);
+    } catch (error) {
+        throw new Error(`Update failed for order item ID ${id}. Error details: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error updating the order item with the id: " + id');
-    }
-}
+};
 
 export const removeOrderItem = async (id) => {
     try {
-        return "the order item with the id " + id + " was removed";
-    }
-    catch(error) {
-        throw new Error('Error fetching order items');
+        return await remove(id);
+    } catch (error) {
+        throw new Error(`Failed to delete order item with ID ${id}. Error: ${error.message}`);
     }   
-}
+};

@@ -1,44 +1,41 @@
+import { create, getAll, getById, remove, update } from "../repositories/cartRepository.js";
+
 export const getAllCarts = async () => {
     try {
-        return "it works";
+        return await getAll();
+    } catch (error) {
+        throw new Error(`Failed to retrieve carts. Reason: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error fetching carts');
-    }
-}
+};
 
 export const findCartById = async (id) => {
     try {
-        return "it works with id: " + id;
-    }
-    catch(error) {
-        throw new Error('Error fetching cart');
+        return await getById(id);
+    } catch (error) {
+        throw new Error(`Unable to fetch cart with ID ${id}. Error: ${error.message}`);
     }  
-}  
+};  
 
 export const saveCart = async (cart) => {
     try {
-        return cart;
-    }
-    catch(error) {
-        throw new Error('Error saving the new cart');
+        return await create(cart);
+    } catch (error) {
+        throw new Error(`Could not save the new cart (ID: ${cart.id}). Error: ${error.message}`);
     }  
-}
+};
 
 export const updateCartDetails = async (id, cart) => {
     try {
-        return cart.status + " is the new value for the cart with the id: " + id;
+        return await update(id, cart);
+    } catch (error) {
+        throw new Error(`Update failed for cart ID ${id}. Error details: ${error.message}`);
     }
-    catch(error) {
-        throw new Error('Error updating the cart with the id: " + id');
-    }
-}
+};
 
 export const removeCart = async (id) => {
     try {
-        return "the cart with the id " + id + " was removed";
-    }
-    catch(error) {
-        throw new Error('Error fetching carts');
+        return await remove(id);
+    } catch (error) {
+        throw new Error(`Failed to delete cart with ID ${id}. Error: ${error.message}`);
     }   
-}
+};
