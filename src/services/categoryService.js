@@ -1,4 +1,4 @@
-import { getAll } from "../repositories/categoryRepository.js";
+import { create, getAll, getById, remove, update } from "../repositories/categoryRepository.js";
 
 export const getAllCategories = async () => {
     try {
@@ -11,7 +11,7 @@ export const getAllCategories = async () => {
 
 export const findCategoryById = async (id) => {
     try {
-        return "it works with id: "+id;
+        return await getById(id);
     }
     catch(error) {
         throw new Error('Error fetching categories');
@@ -20,7 +20,7 @@ export const findCategoryById = async (id) => {
 
 export const saveCategory = async (category) => {
     try {
-        return category;
+        return await create(category);
     }
     catch(error) {
         throw new Error('Error saving the new category');
@@ -29,7 +29,7 @@ export const saveCategory = async (category) => {
 
 export const updateCategoryDetails = async (id, category) => {
     try {
-        return category.name + " is the new value for the category with the id: "+id;
+        return await update(id, category);
     }
     catch(error) {
         throw new Error('Error updating the category with the id: '+id);
@@ -38,7 +38,7 @@ export const updateCategoryDetails = async (id, category) => {
 
 export const removeCategory = async (id) => {
     try {
-        return "the category with the id "+ id + " was removed";
+        return await remove(id);
     }
     catch(error) {
         throw new Error('Error fetching categories');
