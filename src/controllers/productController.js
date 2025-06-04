@@ -2,7 +2,7 @@ import { getAllProducts, findProductById, saveProduct, updateProductDetails, rem
 
 export const getProducts = async (req, res) => {
     try {
-        const products = await getAllProducts();
+        const products = await getAllProducts(req.query.page, req.query.limit);
         res.json(products);
     }
     catch(error) {

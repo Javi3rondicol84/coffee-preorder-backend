@@ -1,8 +1,18 @@
 import { create, getAll, getById, remove, update } from "../repositories/productRepository.js";
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (page, limit) => {
+
+    if(page === undefined || page <= 0) {
+        page = 1;
+    }
+    if(limit === undefined || limit <= 0 ) {
+        limit = 10;
+    }
+
+    const offset = (page-1)*limit;
+
     try {
-        return await getAll();
+        return await getAll(offset, Number(limit));
     } catch (error) {
         throw new Error(`Failed to retrieve products. Reason: ${error.message}`);
     }

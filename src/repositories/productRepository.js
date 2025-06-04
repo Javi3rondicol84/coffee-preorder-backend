@@ -1,8 +1,8 @@
 import { Product } from "../models/product.js";
 
-export async function getAll() {
+export async function getAll(offset, limit) {
     try {
-        return await Product.findAll();
+        return await Product.findAll( {offset: offset, limit: limit, order: [['product_id', 'ASC']]} );
     }
     catch(error) {
         console.error('Database error in getAll');
