@@ -33,19 +33,29 @@ CartItem.init(
         },
         quantity: {
             type: DataTypes.INTEGER
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
         }
-
     },
     {
         sequelize: db,
         modelName: 'cartItem',
         tableName: 'cart_items',
-        underscored: true       
+        underscored: true,
+        timestamps: true       
     }
-)
+);
 
-CartItem.belongsTo(Cart, {foreignKey: 'cartIdFk'});
-Cart.hasMany(CartItem, {foreignKey: 'cartIdFk'});
+CartItem.belongsTo(Cart, { foreignKey: 'cartIdFk' });
+Cart.hasMany(CartItem, { foreignKey: 'cartIdFk' });
 
-CartItem.belongsTo(Product, {foreignKey: 'productIdFk'});
-Product.hasMany(CartItem, {foreignKey: 'productIdFk'});
+CartItem.belongsTo(Product, { foreignKey: 'productIdFk' });
+Product.hasMany(CartItem, { foreignKey: 'productIdFk' });

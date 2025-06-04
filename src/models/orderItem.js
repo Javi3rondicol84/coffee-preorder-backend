@@ -33,18 +33,29 @@ OrderItem.init(
         },
         quantity: {
             type: DataTypes.INTEGER
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
         }
     },
     {
         sequelize: db,
         modelName: 'OrderItem',
         tableName: 'order_items',
-        underscored: true
+        underscored: true,
+        timestamps: true
     }
 );
 
-OrderItem.belongsTo(Order, {foreignKey: 'orderIdFk'});
-Order.hasMany(OrderItem, {foreignKey: 'orderIdFk'});
+OrderItem.belongsTo(Order, { foreignKey: 'orderIdFk' });
+Order.hasMany(OrderItem, { foreignKey: 'orderIdFk' });
 
-OrderItem.belongsTo(Product, {foreignKey: 'productIdFk'});
-Product.hasMany(OrderItem, {foreignKey: 'productIdFk'});
+OrderItem.belongsTo(Product, { foreignKey: 'productIdFk' });
+Product.hasMany(OrderItem, { foreignKey: 'productIdFk' });

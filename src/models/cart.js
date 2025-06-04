@@ -19,13 +19,24 @@ Cart.init(
                 model: 'users',
                 key: 'user_id'
             }
+        },
+         createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW, 
+            allowNull: false
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW, 
+            allowNull: false
         }
     },
     {
         sequelize: db,
         modelName: 'Cart',
         tableName:  'customer_carts',
-        underscored: true
+        underscored: true,
+        timestamps: true
     }
 );
 

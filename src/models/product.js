@@ -30,15 +30,26 @@ Product.init(
                 model: 'categories',
                 key: 'category_id'
             }
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
         }
     },
     {
         sequelize: db,
         modelName: 'Product',
         tableName: 'products',
-        underscored: true
+        underscored: true,
+        timestamps: true
     }
 );
 
-Product.belongsTo(Category, {foreignKey: "categoryIdFk"});
-Category.hasMany(Product, {foreignKey: 'categoryIdFk'});
+Product.belongsTo(Category, { foreignKey: "categoryIdFk" });
+Category.hasMany(Product, { foreignKey: 'categoryIdFk' });

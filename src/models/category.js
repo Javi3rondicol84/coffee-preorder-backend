@@ -13,12 +13,23 @@ Category.init(
         categoryName: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
         }
     },
     {
         sequelize: db,
         modelName: 'Category',
         tableName: 'categories',
-        underscored: true
+        underscored: true,
+        timestamps: true
     }
-)
+);

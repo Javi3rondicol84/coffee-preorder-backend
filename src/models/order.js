@@ -13,7 +13,7 @@ Order.init(
         },
         userIdFk: {
             type: DataTypes.INTEGER,
-            unique: true ,
+            unique: true,
             allowNull: false,
             references: {
                 model: 'users',
@@ -27,15 +27,26 @@ Order.init(
                 'failed', 'refunded'
             ),
             defaultValue: 'pending'
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+            allowNull: false
         }
     },
     {
         sequelize: db,
         modelName: 'Order',
         tableName: 'orders',
-        underscored: true
+        underscored: true,
+        timestamps: true
     }
 );
 
-Order.belongsTo(User, {foreignKey: 'userIdFk'});
-User.hasOne(Order, {foreignKey: 'userIdFk'});
+Order.belongsTo(User, { foreignKey: 'userIdFk' });
+User.hasOne(Order, { foreignKey: 'userIdFk' });
