@@ -1,8 +1,23 @@
 import { Category } from "../models/category.js"; 
+import { Product } from "../models/product.js";
 
 export async function getAll() {
     try {
         return await Category.findAll();
+    }
+    catch(error) {
+        console.error('Database error in getAll', error);
+        throw new Error('Failed to retrieve categories');
+    }
+}
+
+export async function getAllWithProducts() {
+    try {
+        return await Category.findAll({
+            include: {
+                model: Product
+            }
+        });
     }
     catch(error) {
         console.error('Database error in getAll', error);
@@ -62,4 +77,6 @@ export async function remove(id) {
         throw new Error('Failed to remove a category');
     }
 }
+
+
 

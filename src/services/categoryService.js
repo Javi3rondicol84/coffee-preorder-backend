@@ -1,4 +1,4 @@
-import { create, getAll, getById, remove, update } from "../repositories/categoryRepository.js";
+import { create, getAll, getAllWithProducts, getById, remove, update } from "../repositories/categoryRepository.js";
 
 export const getAllCategories = async () => {
     try {
@@ -6,6 +6,14 @@ export const getAllCategories = async () => {
     } catch (error) {
         throw new Error(`Failed to retrieve categories. Reason: ${error.message}`);
     }
+};
+
+export const findCategoriesAndProducts = async () => {
+    try {
+        return await getAllWithProducts();
+    } catch (error) {
+        throw new Error(`Failed to delete category with ID ${id}. Error: ${error.message}`);
+    }   
 };
 
 export const findCategoryById = async (id) => {
@@ -39,3 +47,5 @@ export const removeCategory = async (id) => {
         throw new Error(`Failed to delete category with ID ${id}. Error: ${error.message}`);
     }   
 };
+
+

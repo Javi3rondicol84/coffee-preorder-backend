@@ -1,4 +1,4 @@
-import { getAllCategories, findCategoryById, saveCategory, updateCategoryDetails, removeCategory } from "../services/categoryService.js";
+import { getAllCategories, findCategoryById, saveCategory, updateCategoryDetails, removeCategory, findCategoriesAndProducts } from "../services/categoryService.js";
 
 export const getCategories = async (req, res) => {
     try {
@@ -7,6 +7,16 @@ export const getCategories = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({ error: 'Failed to fetch categories' });
+    }
+}
+
+export const getCategoriesAndProducts = async (req, res) => {
+    try {
+        const response = await findCategoriesAndProducts();
+        res.json(response);
+    }
+    catch(error) {
+        res.status(500).json({ error: 'Failed to delete the category' });
     }
 }
 
@@ -49,3 +59,5 @@ export const deleteCategory = async (req, res) => {
         res.status(500).json({ error: 'Failed to delete the category' });
     }
 }
+
+
