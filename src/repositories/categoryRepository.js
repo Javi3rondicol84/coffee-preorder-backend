@@ -11,11 +11,12 @@ export async function getAll() {
     }
 }
 
-export async function getAllWithProducts() {
+export async function getAllWithProducts(limit) {
     try {
         return await Category.findAll({
             include: {
-                model: Product
+                model: Product,
+                limit: limit,
             }
         });
     }

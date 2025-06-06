@@ -8,9 +8,9 @@ export const getAllCategories = async () => {
     }
 };
 
-export const findCategoriesAndProducts = async () => {
+export const findCategoriesAndProducts = async (limit) => {
     try {
-        return await getAllWithProducts();
+        return await getAllWithProducts(Number(limit));
     } catch (error) {
         throw new Error(`Failed to delete category with ID ${id}. Error: ${error.message}`);
     }   

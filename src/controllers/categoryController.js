@@ -12,7 +12,7 @@ export const getCategories = async (req, res) => {
 
 export const getCategoriesAndProducts = async (req, res) => {
     try {
-        const response = await findCategoriesAndProducts();
+        const response = await findCategoriesAndProducts(req.query.limit);
         res.json(response);
     }
     catch(error) {
