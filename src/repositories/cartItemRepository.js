@@ -21,6 +21,7 @@ export async function getById(id) {
 }
 
 export async function create(cartItem) {
+    console.log(cartItem);
     try {
         return await CartItem.create(cartItem);
     }

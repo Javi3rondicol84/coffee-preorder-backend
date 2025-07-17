@@ -1,4 +1,4 @@
-import { getAllCarts, findCartById, saveCart, updateCartDetails, removeCart } from "../services/cartService.js"; 
+import { getAllCarts, findCartById, saveCart, updateCartDetails, removeCart, saveCartItem } from "../services/cartService.js";
 
 export const getCarts = async (req, res) => {
     try {
@@ -47,5 +47,15 @@ export const deleteCart = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({ error: 'Failed to delete the cart' });
+    }
+}
+
+export const createCartItem = async (req, res) => {
+    try {
+        const response = await saveCartItem(req.body);
+        res.json(response);
+    }
+    catch(error) {
+        res.status(500).json({ error: 'Failed to create the cart item' });
     }
 }

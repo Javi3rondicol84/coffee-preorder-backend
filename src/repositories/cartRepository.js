@@ -57,3 +57,21 @@ export async function remove(id) {
         throw new Error(`Failed to remove cart with ID ${id}. Error: ${error.message}`);     
     }
 }
+
+export async function getCartIdByUserId(userId) {
+
+    try {
+        return await Cart.findOne( {
+            where: {
+                userIdFk: userId
+            },
+            attributes: ['cartId']
+        });
+    }
+    catch(error) {
+        console.error('Database error in getById');
+        throw new Error(`Failed to retrieve cartId with userID ${userId}. Error: ${error.message}`);
+    }
+}
+
+

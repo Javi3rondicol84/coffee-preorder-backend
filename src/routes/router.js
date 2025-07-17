@@ -6,9 +6,11 @@ import { orderRoutes } from './orderRoutes.js';
 import { orderItemRoutes } from './orderItemRoutes.js';
 import { cartRoutes } from './cartRoutes.js';
 import { cartItemRoutes } from './cartItemRoutes.js';
+import { authRoutes } from './authRoutes.js';
 
 export const router = express.Router();
 
+router.use('/auth', authRoutes);
 router.use('/user', userRoutes);
 router.use('/category', categoryRoutes);
 router.use('/product', productRoutes);

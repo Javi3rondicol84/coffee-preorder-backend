@@ -1,4 +1,5 @@
 import { User } from "../models/user.js";
+import {create as createNewCart} from "./cartRepository.js";
 
 export async function getAll() {
     try {
@@ -21,8 +22,22 @@ export async function getById(id) {
 }
 
 export async function create(user) {
+    let message = "failed to create a user";
     try {
-        return await User.create(user);
+        const response = await User.create(user);
+
+        let newUserId = response.dataValues.userId;
+
+        let newCart = {
+            userIdFk: newUserId
+        }
+
+        let cartCreationResponse = await createNewCart(newCart);
+
+        if(response !== null && cartCreationResponse !== null) {
+            message = "user created successfuly"
+        }
+        return message;
     }
     catch(error) {
         console.error('Database error in create');
@@ -55,5 +70,19 @@ export async function remove(id) {
     catch(error) {
         console.error('Database error in remove');
         throw new Error(`Failed to remove user with ID ${id}. Error: ${error.message}`);     
+    }
+}
+
+export async function getUserByEmail(email) {
+    try {
+        return await User.findOne({
+            where: {
+                email: email
+            }
+        });
+    }
+    catch(error) {
+        console.error('Database error in getUserByEmail');
+        throw new Error('Failed to retrieve user. Reason: ' + error.message);
     }
 }
